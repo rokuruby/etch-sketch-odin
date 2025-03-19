@@ -25,17 +25,32 @@ createGrid(16, 16); //to invoke the grid function with the desired width & lengt
 const cells = document.querySelectorAll(".cell");
 console.log(cells.length);
 
-// Loop through all cells and add event listeners
+// Add event listener to each cell to detect mouse click to toggle black and revert square back to original color
+
 cells.forEach(cell => {
     cell.addEventListener("click", function () {
-        cell.style.backgroundColor = "black"; // Change color on click
+        // Toggle between black and light gray
+        if (cell.style.backgroundColor === "black") {
+            cell.style.backgroundColor = "lightgray";  // Revert to default
+        } else {
+            cell.style.backgroundColor = "black";  // Change to black
+        }
     });
 });
 
 // Append the cell to the grid container
 gridDiv.appendChild(cell);
 
-//Event to detect mouse click and revert square back to original color
-
 
 //event to detect button click to reset all grid to default color
+// Select the reset button
+const resetButton = document.querySelector("#resetButton"); // Make sure your button has id="resetButton"
+
+console.log(resetButton);
+
+// Reset button event listener
+resetButton.addEventListener("click", function () {
+    document.querySelectorAll(".cell").forEach(cell => {
+        cell.style.backgroundColor = "lightgray"; // Reset color
+    });
+});
