@@ -3,3 +3,19 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.grid div {
+    background-color: rgba(0, 0, 0, 0); /* Initial transparent background */
+    border: 1px solid lightgray; /* Keep border */
+  }
+  
+  .grid div.darken-1 { background-color: rgba(0, 0, 0, 0.1); }
+  .grid div.darken-2 { background-color: rgba(0, 0, 0, 0.2); }
+  .grid div.darken-3 { background-color: rgba(0, 0, 0, 0.3); }
+  .grid div.darken-4 { background-color: rgba(0, 0, 0, 0.4); }
+  .grid div.darken-5 { background-color: rgba(0, 0,0, 0.5); }
+  .grid div.darken-6 { background-color: rgba(0, 0, 0, 0.6); }
+  .grid div.darken-7 { background-color: rgba(0, 0, 0, 0.7); }
+  .grid div.darken-8 { background-color: rgba(0, 0, 0, 0.8); }
+  .grid div.darken-9 { background-color: rgba(0, 0, 0, 0.9); }
+  .grid div.darken-10 { background-color: rgba(0, 0, 0, 1); }

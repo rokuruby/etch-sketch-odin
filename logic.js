@@ -3,6 +3,13 @@
 const gridContainer = document.querySelector('.grid');
 const resetButton = document.getElementById('resetButton');
 
+function getRandomRGB() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
 function createGrid(size) {
   gridContainer.innerHTML = ''; // Clear previous grid
 
@@ -19,9 +26,17 @@ function createGrid(size) {
     square.style.height = `${squareSize}px`;
     square.style.boxSizing = 'border-box'; // Include border in width/height
     square.style.border = '1px solid lightgray'; // Optional border
+    square.dataset.darknessLevel = 0; // Initialize darkness level
+    //square.style.backgroundColor = getRandomRGB(); //Random color for each square
 
     square.addEventListener('mouseover', () => {
-      square.style.backgroundColor = 'black'; // Change color on hover
+      let darknessLevel = parseInt(square.dataset.darknessLevel);
+      darknessLevel++;
+      if (darknessLevel > 10) {
+        darknessLevel = 10;
+      }
+      square.dataset.darknessLevel = darknessLevel;
+      square.className = `darken-${darknessLevel}`;
     });
 
     gridContainer.appendChild(square);
