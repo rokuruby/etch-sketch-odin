@@ -1,56 +1,43 @@
-//DOM Manipulation to transform the div with a class =grid to form grids 16x16
-const gridDiv = document.querySelector(".grid");
+// logic.js
 
-function createGrid(rows, cols) {
-    gridDiv.style.display = "grid";
-    gridDiv.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-    gridDiv.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    gridDiv.style.gap = "2px"; // Adjust spacing if needed
+const gridContainer = document.querySelector('.grid');
+const resetButton = document.getElementById('resetButton');
 
-    for (let i = 0; i < rows * cols; i++) {
-        const cell = document.createElement("div");
-        cell.classList.add("cell");
-        cell.style.border = "1px solid black";
-        cell.style.aspectRatio = "1"; // Makes squares
-        cell.style.backgroundColor = "lightgray";
-        gridDiv.appendChild(cell);
-    } //to create divs to fill up the visual grid
+function createGrid(size) {
+  gridContainer.innerHTML = ''; // Clear previous grid
+
+  gridContainer.style.display = 'flex';
+  gridContainer.style.flexWrap = 'wrap';
+  gridContainer.style.width = '480px'; // Adjust as needed
+  gridContainer.style.height = '480px'; // Adjust as needed
+
+  const squareSize = 480 / size; // Calculate square size based on grid size
+
+  for (let i = 0; i < size * size; i++) {
+    const square = document.createElement('div');
+    square.style.width = `${squareSize}px`;
+    square.style.height = `${squareSize}px`;
+    square.style.boxSizing = 'border-box'; // Include border in width/height
+    square.style.border = '1px solid lightgray'; // Optional border
+
+    square.addEventListener('mouseover', () => {
+      square.style.backgroundColor = 'black'; // Change color on hover
+    });
+
+    gridContainer.appendChild(square);
+  }
 }
 
-createGrid(16, 16); //to invoke the grid function with the desired width & length
+createGrid(16); // Initial 16x16 grid
 
+resetButton.addEventListener('click', () => {
+  let newSize = prompt('Enter new grid size (max 100):');
+  newSize = parseInt(newSize);
 
-//Event to detect mouse click and change square to black color
-// Select all cells after they are created
-const cells = document.querySelectorAll(".cell");
-console.log(cells.length);
+  if (isNaN(newSize) || newSize <= 0 || newSize > 100) {
+    alert('Invalid size. Please enter a number between 1 and 100.');
+    return;
+  }
 
-// Add event listener to each cell to detect mouse click to toggle black and revert square back to original color
-
-cells.forEach(cell => {
-    cell.addEventListener("click", function () {
-        // Toggle between black and light gray
-        if (cell.style.backgroundColor === "black") {
-            cell.style.backgroundColor = "lightgray";  // Revert to default
-        } else {
-            cell.style.backgroundColor = "black";  // Change to black
-        }
-    });
-});
-
-// Append the cell to the grid container
-gridDiv.appendChild(cell);
-
-
-//event to detect button click to reset all grid to default color
-// Select the reset button
-const resetButton = document.querySelector("#resetButton"); // Make sure your button has id="resetButton"
-
-console.log(resetButton);
-
-// Reset button event listener
-resetButton.addEventListener("click", function () {
-    document.querySelectorAll(".cell").forEach(cell => {
-        cell.style.backgroundColor = "lightgray"; // Reset color
-    });
+  createGrid(newSize);
 });
